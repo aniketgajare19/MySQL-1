@@ -1,4 +1,4 @@
-#### First_Repo<br />
+# First_Repo<br />
 This files contains all information about my software packages and machine.<br />
 ## Operating System <br />
 Command : hostnamectl<br />
@@ -54,7 +54,7 @@ mysql> show databases;<br />
 ## Redis Information<br />
 aniket@aniket-pc:~$ redis-cli<br />
 127.0.0.1:6379> INFO<br />
-# Server<br />
+### Server<br />
 redis_version:5.0.8<br />
 redis_git_sha1:00000000<br />
 redis_git_dirty:0<br />
@@ -76,13 +76,13 @@ lru_clock:14055300<br />
 executable:/home/aniket/redis-server<br />
 config_file:<br />
 <br />
-# Clients<br />
+### Clients<br />
 connected_clients:1<br />
 client_recent_max_input_buffer:2<br />
 client_recent_max_output_buffer:0<br />
 blocked_clients:0<br />
 <br />
-# Memory<br />
+### Memory<br />
 used_memory:575624<br />
 used_memory_human:562.13K<br />
 used_memory_rss:5914624<br />
@@ -124,7 +124,7 @@ mem_allocator:jemalloc-5.1.0<br />
 active_defrag_running:0<br />
 lazyfree_pending_objects:0<br />
 <br />
-# Persistence<br />
+### Persistence<br />
 loading:0<br />
 rdb_changes_since_last_save:0<br />
 rdb_bgsave_in_progress:0<br />
@@ -142,7 +142,7 @@ aof_last_bgrewrite_status:ok<br />
 aof_last_write_status:ok<br />
 aof_last_cow_size:0<br />
 <br />
-# Stats<br />
+### Stats<br />
 total_connections_received:2<br />
 total_commands_processed:2<br />
 instantaneous_ops_per_sec:0<br />
@@ -170,7 +170,7 @@ active_defrag_misses:0<br />
 active_defrag_key_hits:0<br />
 active_defrag_key_misses:0<br />
 <br />
-# Replication<br />
+### Replication<br />
 role:master<br />
 connected_slaves:0<br />
 master_replid:9f3993ac6f5566f62bca9e773a25790ac9172b61<br />
@@ -182,12 +182,12 @@ repl_backlog_size:1048576<br />
 repl_backlog_first_byte_offset:0<br />
 repl_backlog_histlen:0<br />
 <br />
-# CPU<br />
+### CPU<br />
 used_cpu_sys:0.797290<br />
 used_cpu_user:0.873222<br />
 used_cpu_sys_children:0.000000<br />
 used_cpu_user_children:0.000000<br />
 <br />
-# Cluster<br />
+### Cluster<br />
 cluster_enabled:0<br />
 <br />
