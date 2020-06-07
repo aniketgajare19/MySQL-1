@@ -1,0 +1,66 @@
+mysql> SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SET autocommit = 0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> BEGIN;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT @orderNumber:=MAX(orderNumber) + 1 FROM orders;
++------------------------------------+
+| @orderNumber:=MAX(orderNumber) + 1 |
++------------------------------------+
+|                              10426 |
++------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT @customerNumber:=MAX(customerNumber) + 1 FROM customers;
++------------------------------------------+
+| @customerNumber:=MAX(customerNumber) + 1 |
++------------------------------------------+
+|                                      497 |
++------------------------------------------+
+1 row in set (0.06 sec)
+
+mysql> SELECT @employeeNumber:=MAX(employeeNumber) FROM employees;
++--------------------------------------+
+| @employeeNumber:=MAX(employeeNumber) |
++--------------------------------------+
+|                                 1702 |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO customers 
+    -> VALUES (@customerNumber,'Aniket','Gajare','Aniket','9988776655','IIT','Roorkee', 'Haridwar','Uttrakhand','247667','India',@employeeNumber,87.50);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orders
+    -> VALUES (@orderNumber , '2020-06-06','2020-06-10','2020-06-08','In Process','Pack properly',@customerNumber);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orderdetails
+    -> VALUES (@orderNumber,'S10_1949',1,'28',3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO payments
+    -> VALUES (@customerNumber,'abcd_123','2020-06-06',28,@orderNumber);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.04 sec)
+
+
+mysql> select* from customers where customerNumber = 497;
++----------------+--------------+-----------------+------------------+------------+--------------+--------------+----------+------------+------------+---------+------------------------+-------------+
+| customerNumber | customerName | contactLastName | contactFirstName | phone      | addressLine1 | addressLine2 | city     | state      | postalCode | country | salesRepEmployeeNumber | creditLimit |
++----------------+--------------+-----------------+------------------+------------+--------------+--------------+----------+------------+------------+---------+------------------------+-------------+
+|            497 | Aniket       | Gajare          | Aniket           | 9988776655 | IIT          | Roorkee      | Haridwar | Uttrakhand | 247667     | India   |                   1702 |       87.50 |
++----------------+--------------+-----------------+------------------+------------+--------------+--------------+----------+------------+------------+---------+------------------------+-------------+
+
+mysql> select* from payments where customerNumber = 497;
++----------------+-------------+-------------+--------+-------------+
+| customerNumber | checkNumber | paymentDate | amount | orderNumber |
++----------------+-------------+-------------+--------+-------------+
+|            497 | abcd_123    | 2020-06-06  |  28.00 |       10426 |
++----------------+-------------+-------------+--------+-------------+

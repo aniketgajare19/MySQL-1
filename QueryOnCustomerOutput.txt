@@ -1,0 +1,29 @@
+mysql> SELECT customers.customerName , orders.orderNumber ,orders.shippedDate, payments.paymentDate  ,orderdetails.quantityOrdered as 'Quantity', orderdetails.priceEach*orderdetails.quantityOrdered as 'TotalAmount', products.productName , productlines.image 
+    -> FROM customers 
+    -> INNER JOIN orders ON orders.customerNumber = customers.customerNumber
+    -> INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+    -> INNER JOIN products ON products.productCode = orderdetails.productCode 
+    -> INNER JOIN productlines ON products.productLine = productlines.productLine
+    -> INNER JOIN payments ON payments.orderNumber = orders.orderNumber
+    -> WHERE customers.customerNumber = 181;
++-----------------+-------------+-------------+-------------+----------+-------------+---------------------------------------------+-------+
+| customerName    | orderNumber | shippedDate | paymentDate | Quantity | TotalAmount | productName                                 | image |
++-----------------+-------------+-------------+-------------+----------+-------------+---------------------------------------------+-------+
+| Vitachrome Inc. |       10102 | 2003-01-14  | 2005-04-23  |       39 |     3726.45 | 1937 Lincoln Berline                        | NULL  |
+| Vitachrome Inc. |       10102 | 2003-01-14  | 2005-04-23  |       41 |     1768.33 | 1936 Mercedes-Benz 500K Special Roadster    | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       27 |     3997.62 | 1969 Corvair Monza                          | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       26 |     2618.98 | 1957 Chevy Pickup                           | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       47 |     6695.15 | 1998 Chrysler Plymouth Prowler              | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       33 |     3483.15 | 1964 Mercedes Tour Bus                      | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       27 |     3703.59 | 1992 Ferrari 360 Spider red                 | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       49 |     5911.36 | 1970 Triumph Spitfire                       | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       38 |     1892.78 | 1939 Cadillac Limousine                     | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       25 |     1242.75 | 1970 Dodge Coronet                          | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       31 |     3327.54 | 1962 Volkswagen Microbus                    | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       30 |      880.50 | 1958 Chevy Corvette Limited Edition         | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       33 |     3149.52 | 1936 Chrysler Airflow                       | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       20 |     1829.80 | 1980’s GM Manhattan Express                 | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       48 |     2916.48 | 1996 Peterbilt 379 Stake Bed with Outrigger | NULL  |
+| Vitachrome Inc. |       10324 | 2004-11-08  | 2003-06-06  |       34 |     2751.28 | 1982 Camaro Z28                             | NULL  |
++-----------------+-------------+-------------+-------------+----------+-------------+---------------------------------------------+-------+
+

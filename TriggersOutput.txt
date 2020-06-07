@@ -1,0 +1,56 @@
+mysql> CREATE TABLE counter( customerNumber int NOT NULL ,orderCount int);
+
+mysql> INSERT INTO counter SELECT customers.customerNumber ,count(orders.orderNumber) AS 'Count' FROM customers INNER JOIN orders ON orders.customerNumber = customers.customerNumber GROUP BY customers.customerNumber;
+
+mysql> SELECT * FROM counter where customerNumber = 497;
++----------------+------------+
+| customerNumber | orderCount |
++----------------+------------+
+|            497 |          1 |
++----------------+------------+
+
+mysql>   CREATE TRIGGER autoupdate BEFORE INSERT ON orders
+    ->   FOR EACH ROW
+    ->   UPDATE counter SET orderCount = orderCount + 1 WHERE customerNumber = NEW.customerNumber;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SET autocommit = 0;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> BEGIN;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT @orderNumber:=MAX(orderNumber) + 1 FROM orders;
++------------------------------------+
+| @orderNumber:=MAX(orderNumber) + 1 |
++------------------------------------+
+|                              10427 |
++------------------------------------+
+1 row in set (0.05 sec)
+
+mysql> INSERT INTO orders
+    -> VALUES (@orderNumber , '2020-06-06','2020-06-10','2020-06-08','In Process','Pack properly',497);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO orderdetails
+    -> VALUES (@orderNumber,'S10_1949',1,'28',3);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO payments
+    -> VALUES (497,'abcd_123','2020-06-06',28,@orderNumber);
+ERROR 1062 (23000): Duplicate entry '497-abcd_123' for key 'PRIMARY'
+mysql> INSERT INTO payments VALUES (497,'abcd_456','2020-06-06',28,@orderNumber);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT * FROM counter where customerNumber = 497;
++----------------+------------+
+| customerNumber | orderCount |
++----------------+------------+
+|            497 |          2 |
++----------------+------------+
